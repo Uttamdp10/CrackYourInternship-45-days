@@ -2,22 +2,24 @@ class Solution {
 public:
     int maxOperations(vector<int>& nums, int k) 
     {
-       sort(nums.begin(), nums.end());
-        int start = 0, end = nums.size() - 1;
-        int ans = 0;
-        while (start < end)
+        unordered_map<int, int> mp;
+        int count=0;
+        
+        for(auto it:nums)
         {
-            if (nums[start] + nums[end] == k)
+		
+            int y=k-it;
+            if(mp.find(y) != mp.end() && mp[y] > 0) //find k-it in map if it exists we increase the count
             {
-                ans++;
-                start++;
-                end--;
+                count++;
+				//decrease the frequency of y and it
+                mp[y]--; 
+                mp[it]--;
             }
-            else if (nums[start] + nums[end] < k)
-                start++;
-            else
-                end--;
+            mp[it]++; //store the frequency of it
+            
         }
-        return ans;
+        
+        return count;
     }
 };
