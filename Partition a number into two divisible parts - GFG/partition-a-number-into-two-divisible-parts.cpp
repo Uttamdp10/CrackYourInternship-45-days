@@ -11,7 +11,9 @@ public:
         for(int i = 1; i < n; i++) {
             string s1 = S.substr(0, i);
             string s2 = S.substr(i);
-            if(stoi(s1) % a == 0 && stoi(s2) % b == 0) 
+            int u = stoi(s1);
+            int p = stoi(s2);
+            if(u % a == 0 && p % b == 0) 
                 return s1 + " " + s2;
         }
         
