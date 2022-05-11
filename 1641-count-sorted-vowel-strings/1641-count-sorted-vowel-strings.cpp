@@ -1,14 +1,12 @@
 class Solution {
 public:
-    int countVowelStrings(int n) {
-        int ans = 0;
-        for (int j=1; j<=(n+1); j++) {
-            int sum = 0;
-            for (int i=1; i<=j; i++) {
-                sum += i;
-                ans += sum;
-            }
-        }
+    int countVowelStrings(int n,int k=5) {
+        if(k<=1 || n==1)
+            return k;
+        
+        int ans=0;
+        for(int i=0;i<k;i++)
+            ans+=countVowelStrings(n-1,k-i);
         return ans;
     }
 };
