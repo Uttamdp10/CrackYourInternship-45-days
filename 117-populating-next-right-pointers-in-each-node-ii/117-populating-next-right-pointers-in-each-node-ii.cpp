@@ -1,39 +1,33 @@
 class Solution {
 public:
-        
-Node* findNext(Node *root)
-{
-while(root->next != NULL)
-{
-root = root->next;
-
-        if(root->left != NULL)
-            return root->left;
-        if(root->right !=NULL)
-            return root->right;
+    Node* connect(Node* root) {
+       if(root==NULL)
+       {
+           return NULL;           
+       }
+       queue<Node*> q;
+        q.push(root);
+        while(!q.empty())
+        {
+            int size=q.size();
+            for(int i=0;i<size;i++)
+            {
+                Node* front=q.front();
+                q.pop();
+                if(i<size-1)
+                {
+		front->next=q.front();       //if q has more than one element in it ,then point popped ele to curr front ele
+				}
+                if(front->left)
+                {
+                    q.push(front->left);
+                }
+                if(front->right)
+                {
+                    q.push(front->right);
+                }
+            }
+        }
+        return root;
     }
-    return NULL;
-}
-public:
-Node* connect(Node* root)
-{
-
-    if(root == NULL)
-        return NULL;
-    
-    if(root->left != NULL)
-    {
-        if(root->right != NULL)
-            root->left->next = root->right;
-        
-        else
-            root->left->next = findNext(root);
-    }
-    if(root->right!= NULL)
-        root->right->next = findNext(root);
-    
-    connect(root->right);
-    connect(root->left);
-    return root;
-}
 };
