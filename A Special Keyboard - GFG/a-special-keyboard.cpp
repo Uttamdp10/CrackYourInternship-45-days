@@ -12,26 +12,14 @@ class Solution {
   public:
     int findTime(string S1, string S2)
     {
-         unordered_map<char,int> mapping;
-       
-       // we do a mapping of every character at index.
-       for(int i = 0; i<26; i++)
-       {
-           mapping[S1[i]] = i;
-       }
-       
-       int sum = 0;    // to calculate total time
-       
-       // initially we are index 0
-       int index = 0;
-       
-       for(auto i : S2)
-       {
-           sum += abs(index - mapping[i]);
-           index = mapping[i];
-       }
-       
-       return sum;
+        int pos = 0, res = 0;
+        for(int i = 0; i < S2.length();i++)
+        {
+            int x = S1.find(S2[i]);
+            res += abs(pos - x);
+            pos = x;
+        }
+        return res;
    }
 };
 
