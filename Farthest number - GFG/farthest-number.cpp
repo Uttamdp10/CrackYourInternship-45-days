@@ -12,7 +12,7 @@ class Solution{
         //code here
         vector<int>v;
        
-        
+         int flag = 0; 
         for(int j = 0; j < N; j++)
         {
              int flag = 0; 
