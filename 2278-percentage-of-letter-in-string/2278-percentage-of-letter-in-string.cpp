@@ -12,7 +12,7 @@ public:
                  
                  
          }
-            ans *= 100;
+            ans = ans * 100;
             return ans/n;
           
     }
