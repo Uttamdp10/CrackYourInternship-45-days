@@ -8,6 +8,7 @@ public:
             
         for(int i = 0; i < strs.size(); i++)
         {
+                //calling count function for counting 0 and 1
             int cnt_0 = count(strs[i]), cnt_1 = strs[i].size() - cnt_0;
                 
             for(int m_q = m; m_q >= 0; m_q--)
@@ -23,7 +24,7 @@ public:
     
     int count(string &s)
     {
-        int cnt_0{0};
+        int cnt_0 = 0;
         for(int i = 0; i < s.size(); i++)
         {
                 if(s[i] == '0')
