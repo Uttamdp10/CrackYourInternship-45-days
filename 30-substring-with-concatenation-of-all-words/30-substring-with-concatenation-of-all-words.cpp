@@ -1,30 +1,37 @@
 class Solution {
 public:
-    bool check(unordered_map<string, int> hash, string current, int wordSize){
-        for(int i = 0; i < current.size(); i += wordSize){
-            string word = current.substr(i, wordSize);
-            
-            if(!hash[word]) return false;
-            hash[word]--;
-        }
-        
-        return true;
-    }
-    
     vector<int> findSubstring(string s, vector<string>& words) {
-        int size = words[0].size() * words.size();
-        vector<int> result;
-        unordered_map<string, int> hash;
         
-        if(s.size() < size) return {};
-    
-        for(string word : words) hash[word]++;
+        unordered_map<string, int> M, temp;
+        vector<int> Ans;
+        int N = words.size();
+        int L = words[0].size();
         
-        for(int i = 0; i <= s.size() - size; i++){
-            if(check(hash, s.substr(i, size), words[0].size()))
-                result.push_back(i);
+       
+        for(auto &it : words) {
+            M[it]++;
         }
+        int size = s.length();
         
-        return result;
+        for(int i = 0; i < size - N*L + 1; i++) {
+            
+         
+            for(int j = i; j < i + N*L; j+= L) {
+                string ans = s.substr(j, L);
+                temp[ans]++;
+            }
+            
+            int flag = 1;
+                      for(auto &it : M) {
+                if(M[it.first] != temp[it.first]) {
+                    flag = 0;
+                    break;
+                }
+            }
+           
+            if(flag) Ans.push_back(i);
+            temp.clear();
+        }
+        return Ans;
     }
 };
