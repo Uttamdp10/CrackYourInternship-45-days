@@ -1,21 +1,36 @@
 class Solution {
 public:
-    string subStrHash(string s, int p, int mod, int k, int target) {
-        long h = 0, N = s.size(), pp = 1; // `pp` = p^k
-        vector<long> hash(N);
-        string r(rbegin(s), rend(s));
-        for (int i = 0; i < N; ++i) {
-            if (i < k) pp = pp * p % mod;
-            h = (h * p + (r[i] - 'a' + 1)) % mod; // push r[i] into the window
-            if (i - k >= 0) { // pop r[i-k] out of the window
-                h = (h - (r[i - k] - 'a' + 1) * pp % mod + mod) % mod;
+    string subStrHash(string s, int power, int modulo, int k, int hashValue) {
+        int n=s.size();                         
+        long long int sum=0;
+        long long int p=1;
+		// Intializing a window from end of size k 
+        for(int i=0;i<k;i++){
+                sum=(sum+((s[n-k+i]-'a'+1)*p));         
+                if(i!=k-1)
+                    p=(p*power)%modulo;
+        }
+		// storing the res when ever we get required answer
+        int res=n-k;   // storing the res when ever we get required answer
+		// slide window to right and removing ith index element and adding (i-k)th index element 
+        for(int i=n-1;i>=k;i--)
+		{                                          
+		//removing last element from window
+                sum-=(s[i]-'a'+1)*(p%modulo);               
+				 // dividing by modulo to avoid integer overflow conditions
+                sum=sum%modulo;                  
+				 // muliplying the given string by power
+                sum=sum*(power%modulo);            
+				 // adding (i-k)th element in the window  
+                sum+=s[i-k]-'a'+1;                 
+				 // if sum < 0 then it created problem in modulus thats why making it positive
+            while(sum%modulo<0){                              
+                sum=sum+modulo;
             }
-            if (i >= k - 1) hash[i] = h;
+            if(sum%modulo==hashValue){
+                res=i-k;                                           // storing the starting window index because we have to return the first string from starting 
+            }
         }
-        reverse(begin(hash), end(hash));
-        for (int i = 0; i < N; ++i) {
-            if (hash[i] == target) return s.substr(i, k); // hash[i] is the hash of `s[i .. (i+k-1)]`
-        }
-        return "";
+        return s.substr(res,k);
     }
 };
