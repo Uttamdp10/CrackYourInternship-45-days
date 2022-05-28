@@ -20,7 +20,7 @@ public:
         {
             if(x>y)
             x=x/2;
-            else
+            else if(y > x)
             y=y/2;
             
             ans++;
