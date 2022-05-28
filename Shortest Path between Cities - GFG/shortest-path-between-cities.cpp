@@ -10,38 +10,24 @@ using namespace std;
 class Solution{   
 public:
   
-        int shortestPath(int n,int m)
+        int shortestPath(int x,int y)
 {
     // swap to keep n smallest
  
-    if (n > m) {
-        swap(n, m);
-    }
- 
-    // a,b is level of n and m
-    int a = log2(n);
-    int b = log2(m);
- 
-    // divide until n!=m
-    while (n != m)
-    {
-        if (n < m)
-            m = m >> 1;
- 
-        if (n > m)
-            n = n >> 1;
-    }
- 
-    // now n==m which is the LCA of n ,m
- 
-    int v = log2(n);
- 
-    return  a + b - 2 * v;
-}
-  
+    int ans=0;
         
+        while(x != y)
+        {
+            if(x>y)
+            x=x/2;
+            else
+            y=y/2;
+            
+            ans++;
+        }
+        return ans;
     
-    
+}
 };
 
 // { Driver Code Starts.
