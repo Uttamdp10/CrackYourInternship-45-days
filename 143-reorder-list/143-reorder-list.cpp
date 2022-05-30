@@ -1,27 +1,18 @@
 class Solution {
 public:
     void reorderList(ListNode* head) {
-        if ((!head) || (!head->next) || (!head->next->next)) return; // Edge cases
+        vector<ListNode*> arr;
+        for(auto iter = head; iter; iter = iter -> next)
+            arr.push_back(iter);
         
-        stack<ListNode*> my_stack;
-        ListNode* ptr = head;
-        int size = 0;
-        while (ptr != NULL) // Put all nodes in stack
-        {
-            my_stack.push(ptr);
-            size++;
-            ptr = ptr->next;
-        }
+		// pointers to start and end of list. Re-order in alternating fashion from both end
+        int L = 1, R = size(arr)-1;
+        for(int i = 0; i < size(arr); i++, head = head -> next) 
+            if(i & 1)                             // odd iteration:
+                head -> next = arr[L++];          //        - pick node from L & update L ptr
+            else                                  // even iteration
+                head -> next = arr[R--];          //        - pick node from R & update R ptr
         
-        ListNode* pptr = head;
-        for (int j=0; j<size/2; j++) // Between every two nodes insert the one in the top of the stack
-        {
-            ListNode *element = my_stack.top();
-            my_stack.pop();
-            element->next = pptr->next;
-            pptr->next = element;
-            pptr = pptr->next->next;
-        }
-        pptr->next = NULL;
+        head -> next = nullptr;
     }
 };
