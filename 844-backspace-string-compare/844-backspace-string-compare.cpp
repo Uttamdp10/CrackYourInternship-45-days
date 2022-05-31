@@ -3,6 +3,7 @@ public:
     bool backspaceCompare(string s, string t) {
         vector<char>S,T;
         int n= s.size(), m = t.size();
+            int count1, count2;
         
         for(int i=0;i<n;i++){
             if(s[i] == '#' && !S.empty())
@@ -10,6 +11,7 @@ public:
             
             else if(s[i]!='#')
                 S.push_back(s[i]);
+              
         }
        
         
@@ -17,11 +19,12 @@ public:
             if(t[i] == '#' && !T.empty())
                 T.pop_back();
             else if(t[i]!='#')
-               T.push_back(t[i]);    
+               T.push_back(t[i]); 
+              
         }
         
         
-        if(S == T)
+        if(S==T)
             return true;
         else
             return false;
