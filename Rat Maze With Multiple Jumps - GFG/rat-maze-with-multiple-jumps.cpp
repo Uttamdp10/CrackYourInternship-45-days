@@ -5,11 +5,17 @@ using namespace std;
  // } Driver Code Ends
 class Solution {
 public:
-	bool fun(vector<vector<int>>&mat,vector<vector<int>>&v,int i,int j,int n){
+	bool fun(vector<vector<int>>&mat,vector<vector<int>>&v,int i,int j,int n)
+	{
+         //edge case
+        
           if(i==n-1 && j==n-1){
               v[i][j]=1;
               return true;
+          
           }
+          //edge case becaue if x is in negative or it is greater then size of matrix.
+          
           if(i>=n ||j>=n || i<0 || j<0 || mat[i][j]==0) return false;
           
           v[i][j]=1;
@@ -24,7 +30,7 @@ public:
 vector<vector<int>> ShortestDistance(vector<vector<int>>&mat){
    
    int n=mat.size();
-   vector<vector<int>>v(n,vector<int>(n,0));
+   vector<vector<int>>v(n,vector<int>(n,0)); 
    bool x=fun(mat,v,0,0,n);
    if(x==false) return {{-1}};
    
