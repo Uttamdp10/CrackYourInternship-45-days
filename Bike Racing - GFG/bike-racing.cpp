@@ -12,22 +12,31 @@ public:
     long buzzTime(long N, long M, long L, long H[], long A[])
     {
         // code 
-         long l = 1, r = M;
-       
-       while(l<r){
-           long mid = l + (r-l)/2;
-           long sum = 0;
-           for(long i=0;i<N;i++)
-               sum += (H[i]+A[i]*(mid))>=L?(H[i]+A[i]*(mid)):0;
-           if(sum>=M)
-               r = mid;
-           else
-               l = mid+1;
-       }
-       
-       return r;
-   
-        
+         long low = 0;
+         long high = max(M,L);
+         
+         long ans = 0;
+         
+         while(low<=high)
+         {
+             long mid = (low+high)/2;
+             long fast =0;
+             for(long i=0;i<N;i++)
+             {
+                 if(H[i]+A[i]*mid>=L)
+                 fast+=H[i]+A[i]*mid;
+                
+             }
+             if(fast>=M)
+             {
+                 ans = mid;
+                 high = mid-1;
+             }
+             else low = mid+1;
+             
+         }
+         
+         return ans;
     }
 };
 
