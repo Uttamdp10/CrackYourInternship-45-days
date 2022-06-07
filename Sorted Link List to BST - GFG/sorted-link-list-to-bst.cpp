@@ -70,37 +70,22 @@ struct TNode
         left=right=NULL;
     }
 }; */
+
 class Solution{
   public:
-    TNode* sortedListToBST(LNode *head)
-    {
-        //code here
-        vector<int>v;
-        int count =0;
-        while(head)
-        {   v.push_back(head->data); // converted LL into vector
-            head=head->next;
-            count++;
+    TNode* sortedListToBST(LNode *head, LNode *tail = NULL) {
+        if(head == tail)
+            return NULL;
+        LNode *slow = head, *fast = head;
+        while(fast != tail && fast->next != tail){
+            slow = slow->next;
+            fast = fast->next->next;
         }
-        int start = 0;
-        int end = count-1;
-        return bst(v,start,end);
-       
-    } 
-    
-    TNode* bst(vector<int>&v, int s, int e)
-    {   
-        if(s>e)return NULL;
-        int m = (s+e+1)/2; 
-        
-        TNode* temp = new TNode(v[m]);
-        // starting tree from middle node as root.
-        temp->left = bst(v,s,m-1);
-        temp->right = bst(v,m+1,e);
-        return temp;
+        TNode *root = new TNode(slow->data);
+        root->left  = sortedListToBST(head, slow);
+        root->right = sortedListToBST(slow->next, tail);
+        return root;
     }
-
-    
 };
 
 // { Driver Code Starts.
