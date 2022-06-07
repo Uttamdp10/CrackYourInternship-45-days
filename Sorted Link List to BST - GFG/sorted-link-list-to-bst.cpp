@@ -78,7 +78,7 @@ class Solution{
         vector<int>v;
         int count =0;
         while(head)
-        {   v.push_back(head->data);
+        {   v.push_back(head->data); // converted LL into vector
             head=head->next;
             count++;
         }
@@ -92,7 +92,9 @@ class Solution{
     {   
         if(s>e)return NULL;
         int m = (s+e+1)/2; 
+        
         TNode* temp = new TNode(v[m]);
+        // starting tree from middle node as root.
         temp->left = bst(v,s,m-1);
         temp->right = bst(v,m+1,e);
         return temp;
