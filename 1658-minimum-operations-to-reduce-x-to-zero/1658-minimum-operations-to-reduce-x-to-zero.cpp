@@ -18,11 +18,15 @@ public:
         int low=0;int high=0;int cursum=0;
         int ans=-1;
 		// Finding the length of Subarray whose sum = Target_Sum
-        while(high<nums.size()){
+        while(high<nums.size())
+        {
             cursum+=nums[high];
-            while(cursum>sum){
+                
+            while(cursum>sum)
+            {
                 cursum-=nums[low++];
             }
+                
             if(cursum==sum)
                 ans=max(ans,high-low+1);
             high++;
