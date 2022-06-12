@@ -1,27 +1,24 @@
 class Solution {
 public:
-    int maximumUniqueSubarray(vector<int>& nums) {
-        int n = nums.size();
-        int L = 0;
-        int R = 0;
-        
-        unordered_map<int, int> freqMap;
-        int sum = 0;
-        int ans = 0;
-        while(R < n) 
-        {
-            int right = nums[R++];
-            sum += right;
-            freqMap[right]++;
+    int maximumUniqueSubarray(vector<int>& nums) 
+    {
+        int curr_sum = 0,  res = 0;
+            unordered_set<int>st;
             
-            while(freqMap[right] > 1) 
+            int i=0,j=0;
+            while(j < nums.size())
             {
-                int left = nums[L++];
-                freqMap[left]--;
-                sum -= left;
+                    while(st.count(nums[j]) > 0)
+                    {
+                            st.erase(nums[i]);
+                            curr_sum -= nums[i];
+                            i++;
+                    }
+                    curr_sum+=nums[j];
+                    st.insert(nums[j++]);
+                    
+                    res = max(res, curr_sum);
             }
-            ans = max(ans, sum);
-        }
-        return ans;
+            return res;
     }
 };
