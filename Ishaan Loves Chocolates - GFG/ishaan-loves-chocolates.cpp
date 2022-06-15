@@ -32,10 +32,21 @@ int main()
 int chocolates(int arr[], int n)
 {
     // Complete the function
-    sort(arr,arr+n);
+    int l = 0;
+    int h =n-1;
     
-    int ans = arr[0];
-    
-    return ans;
+    while(l!=h)
+    {
+        if(arr[l]>arr[h])
+        {
+           l++; 
+        }
+        else
+        {
+            h--;
+        }
+    }
+    return arr[l];
     
 }
+
