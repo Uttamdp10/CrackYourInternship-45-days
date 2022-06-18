@@ -9,7 +9,7 @@ public:
                      sum += nums[r++];
                     while(sum >= target)
                     {
-                             len = min(len, r-l);
+                            len = min(len, r-l);
                             sum -= nums[l++];
                             
                     }
