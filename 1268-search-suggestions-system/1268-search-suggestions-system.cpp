@@ -13,10 +13,9 @@ public:
                     for(auto s : products){
                             if(s.substr(0,curr.length()) == curr)
                                     temp.push_back(s);
+
                             if(temp.size() == 3)
-                                    break;
-                            
-                          
+                                    break;                   
                     }
                     ans.push_back(temp);
             }
