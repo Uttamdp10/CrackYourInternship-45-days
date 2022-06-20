@@ -6,7 +6,7 @@ public:
         
         // STEP 1
         for(int i = 1; i < A.size(); i++) {  // in-place in array A
-            A[i] = A[i]^A[i-1];   // store in-place XOR till current index 
+            A[i] = A[i-1]^A[i];   // store in-place XOR till current index 
         }
         // STEP 2
         for(int i = 0; i < queries.size(); i++) {
