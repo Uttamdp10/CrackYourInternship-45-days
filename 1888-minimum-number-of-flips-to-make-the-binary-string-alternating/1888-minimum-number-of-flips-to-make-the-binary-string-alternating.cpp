@@ -1,89 +1,48 @@
 class Solution {
 public:
-    int minFlips(string str) {
+    int minFlips(string s) {
         
-        int n = str.size();
-        
-        str += str;    // concatenate the string with itself instead of moving one element from start to end
-        
-        string target_1 = "";  // it may be like "010101010101" alternating string
-         
-        string target_2 = "";  // it may be like "101010101010" alternating string
-        
-        // fill the target_1 and target_2
-        
-        for(int i = 0; i < str.size(); i++)
+        int n=s.length();
+        int even0=0, even1=0, odd0=0, odd1=0;
+        for(int i=0;i<n;i++)
         {
-            if(i % 2 == 0)
+            if(s[i]=='1')
             {
-                target_1 += '0';
-                
-                target_2 += '1';
+                if(i&1) odd1++;
+                else even1++;
             }
             else
             {
-                target_1 += '1';
-                
-                target_2 += '0';
+                if(i&1) odd0++;
+                else even0++;
             }
         }
         
-        int diff_1 = 0;   // will store the no of different characters in window from target_1
-        
-        int diff_2 = 0;   // will store the no of different characters in window from target_2
-        
-        int mini = INT_MAX;
-        
-        // apply sliding window, window length will be n
-        
-        for(int i = 0; i < str.size(); i++)
+        int ans=INT_MAX;
+        for(int i=0;i<n;i++)
         {
-            if(i < n)
+            ans=min(ans, min(n-(even1+odd0), n-(odd1+even0)));
+            //rotate and update counts
+            //first index is even
+            if(s[i]=='1')
             {
-                if(str[i] != target_1[i])
-                {
-                    diff_1++;
-                }
-                
-                if(str[i] != target_2[i])
-                {
-                    diff_2++;
-                }
+                even1--;
+                swap(even1,odd1);
+                swap(even0,odd0);
+                if(n&1) even1++;
+                else odd1++;
             }
             else
             {
-                // update our result
-                
-                mini = min({mini, diff_1, diff_2});
-                
-                // removing one character from window from start
-                
-                if(str[i - n] != target_1[i - n])
-                {
-                    diff_1--;
-                }
-                
-                if(str[i - n] != target_2[i - n])
-                {
-                    diff_2--;
-                }
-                
-                // adding one character to window at end
-                
-                if(str[i] != target_1[i])
-                {
-                    diff_1++;
-                }
-                
-                if(str[i] != target_2[i])
-                {
-                    diff_2++;
-                }
+                even0--;
+                swap(even1,odd1);
+                swap(even0,odd0);
+                if(n&1) even0++;
+                else odd0++;
             }
         }
         
-        mini = min({mini, diff_1, diff_2});
         
-        return mini;
+        return ans;
     }
 };
