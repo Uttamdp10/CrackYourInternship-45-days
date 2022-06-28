@@ -6,14 +6,18 @@ public:
         while(l<=r)
         {
             int mid=l+(r-l)/2;
+                int a,b;
             long long int sum=0;
             for(int i=0;i<nums.size();i++)
             {
-                if(nums[i]%mid==0){
-                    sum+=(nums[i]/mid);
+                if(nums[i]%mid==0)
+                {
+                    a=(nums[i]/mid);
+                        sum += a;
                 } else
                 {
-                    sum+=(nums[i]/mid)+1;
+                    b=(nums[i]/mid)+1;
+                        sum+=b;
                 }
             }
             if(sum>threshold)
