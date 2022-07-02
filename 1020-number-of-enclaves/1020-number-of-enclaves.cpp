@@ -1,8 +1,5 @@
 class Solution {
 public:
-   
-    
- 
         void unmark(vector<vector<int>> &grid,int x,int y){
         int rows = grid.size();
         int cols = grid[0].size();
@@ -15,9 +12,7 @@ public:
         unmark(grid,x,y-1);
         unmark(grid,x+1,y);
         unmark(grid,x-1,y);
-    }
-    
-    
+    }    
     int numEnclaves(vector<vector<int>>& grid) {
         int rows,cols,count=0;
         rows=grid.size();
@@ -35,8 +30,7 @@ public:
                 unmark(grid,0,i);
             if(grid[rows-1][i]==1)
                 unmark(grid,rows-1,i);
-        }
-        
+        }   
         for(int i=0;i<rows;i++){
             for(int j=0;j<cols;j++){
                 if(grid[i][j]==1)
