@@ -1,44 +1,32 @@
 class Solution {
 public:
-       string bestHand(vector<int>& ranks, vector<char>& suits) {
-        
-        sort(ranks.begin(),ranks.end());
-        
-         vector<int> arr(4,0);
-        
-        int  m = 1,ans=0,ans2 = 0;
-        
-        for(int i = 1;i<5;i++){
-           while(ranks[i]==ranks[i-1] && i<5){
-               m++;
-               i++;
-           }
-            ans = max(m,ans);
-            m = 1;
+    string bestHand(vector<int>& ranks, vector<char>& suits) 
+    {
+        map<int,int> same_suit;
+        map<int,int> same_rank;
+        for(int i=0; i<ranks.size(); i++)
+        {
+            same_suit[suits[i]-'a']++; //storing count of same char
+            same_rank[ranks[i]]++; //storing count of same rank
         }
         
-        
-        for(int i = 0;i<5;i++ ){
-            int n = suits[i] - 'a';
-            arr[n]++; 
-            ans2 = max(ans2,arr[n]);
+        int three=0, pair_=0;
+        for(int i=0; i<ranks.size(); i++)
+        {
+			//apply operations as per the condition given 
+            if(same_suit[suits[i] - 'a'] > 4) 
+                return "Flush";
+            
+            else if(same_rank[ranks[i]] > 2)
+                three=1;
+            
+            else if(same_rank[ranks[i]] > 1)
+                pair_=1;
         }
         
-        
-        if(ans2 == 5){
-            return "Flush";
-        }
-        
-        if(ans > 2){
-            return "Three of a Kind";
-        }
-        
-        if(ans == 2){
-            return "Pair";
-        }
-        
+        if(three) return "Three of a Kind";
+        else if(pair_) return "Pair";
         return "High Card";
-    }   
-    
-    
+        
+    }
 };
